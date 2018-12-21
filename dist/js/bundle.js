@@ -35403,7 +35403,6 @@ var Home = require('./js/components/home/HomePage.jsx');
 ReactDOM.render(React.createElement(Home, null), document.getElementById('app'));
 
 module.exports = App;
-
 },{"./js/components/home/HomePage.jsx":25,"jquery":7,"react":17,"react-dom":14}],25:[function(require,module,exports){
 "use strict"
 
@@ -35423,5 +35422,4 @@ var Home = createClass({
 });
 
 module.exports = Home;
-
 },{"create-react-class":2,"react":17,"react-dom":14}]},{},[24]);
