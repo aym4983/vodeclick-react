@@ -35395,15 +35395,82 @@ $ = jQuery = require("jquery");
 // import the libraries we need
 var React = require("react");
 var ReactDOM = require("react-dom");
+var CreateReactClass = require("create-react-class");
 
 // reference homePage component
 var Home = require('./js/components/home/HomePage.jsx');
+var About = require("./js/components/about/AboutPage.jsx");
+var Header = require("./js/components/common/Header.jsx");
 
-// rendering components
-ReactDOM.render(React.createElement(Home, null), document.getElementById('app'));
+var App = CreateReactClass({
+  render: function(){
+    var Child;
+    switch (this.props.route){
+      case "about": Child = About;
+      break;
+      default: Child = Home;
+    }
+    return (
+      React.createElement("div", null, 
+        React.createElement(Header, null), 
+        React.createElement(Child, null)
+      )
+    );
+  }
+});
+
+function _routeMe(){
+  var route = window.location.hash.substr(1);
+  ReactDOM.render(React.createElement(App, {route: route}), document.getElementById("app"));
+}
+
+window.addEventListener("hashchange", _routeMe);
+_routeMe();
 
 module.exports = App;
-},{"./js/components/home/HomePage.jsx":25,"jquery":7,"react":17,"react-dom":14}],25:[function(require,module,exports){
+},{"./js/components/about/AboutPage.jsx":25,"./js/components/common/Header.jsx":26,"./js/components/home/HomePage.jsx":27,"create-react-class":2,"jquery":7,"react":17,"react-dom":14}],25:[function(require,module,exports){
+"use strict"
+
+var React = require("react");
+var ReactDOM = require("react-dom");
+var createClass = require("create-react-class");
+
+var About = createClass({
+  render: function(){
+    return (
+      React.createElement("div", null, "About page under construction...")
+    );
+  }
+});
+
+module.exports = About;
+},{"create-react-class":2,"react":17,"react-dom":14}],26:[function(require,module,exports){
+"use strict";
+
+var React = require("react");
+var ReactDOM = require("react-dom");
+var CreateReactClass = require("create-react-class");
+
+var Header = CreateReactClass({
+  render: function(){
+    return (
+      React.createElement("nav", {className: "navbar navbar-default"}, 
+        React.createElement("div", {className: "container-fluid"}, 
+          React.createElement("a", {href: "/", className: "navbar-brand"}, 
+            React.createElement("img", {alt: "Brand", src: "./images/myLogo.png"})
+          ), 
+          React.createElement("ul", {className: "nav nav-tabs"}, 
+            React.createElement("li", null, React.createElement("a", {href: "#"}, "Home")), 
+            React.createElement("li", null, React.createElement("a", {href: "#about"}, "About"))
+          )
+        )
+      )
+    );
+  }
+});
+
+module.exports = Header;
+},{"create-react-class":2,"react":17,"react-dom":14}],27:[function(require,module,exports){
 "use strict"
 
 var React = require("react");
