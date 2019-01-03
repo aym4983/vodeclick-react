@@ -10,6 +10,7 @@ var CreateReactClass = require("create-react-class");
 var Home = require('./js/components/home/HomePage.jsx');
 var About = require("./js/components/about/AboutPage.jsx");
 var Header = require("./js/components/common/Header.jsx");
+var Recipes = require("./js/components/recipes/RecipePage.jsx");
 
 var App = CreateReactClass({
   render: function(){
@@ -17,6 +18,10 @@ var App = CreateReactClass({
     switch (this.props.route){
       case "about": Child = About;
       break;
+
+      case "recipes": Child = Recipes;
+      break;
+      
       default: Child = Home;
     }
     return (
