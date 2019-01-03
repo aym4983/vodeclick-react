@@ -35395,16 +35395,59 @@ $ = jQuery = require("jquery");
 // import the libraries we need
 var React = require("react");
 var ReactDOM = require("react-dom");
+var ReactCreateClass = require("create-react-class");
 
 // reference homePage component
 var Home = require('./js/components/home/HomePage.jsx');
+var About = require('./js/components/about/AboutPage.jsx');
 
-// rendering components
-ReactDOM.render(React.createElement(Home, null), document.getElementById('app'));
+var App = ReactCreateClass({
+  render : function(){
+    var Child;
+    switch(this.props.route){
+      case "about": Child = About;
+      break;
+      default: Child = Home;
+    }
+
+    return (
+      React.createElement("div", null, 
+        React.createElement(Child, null)
+      )
+    );
+  }
+});
+
+function _routeMe () {
+  // get the part of the URL after #
+  var route = window.location.hash.substr(1);
+  // rendering components
+  ReactDOM.render(React.createElement(App, {route: route}), document.getElementById('app'));
+}
+
+window.addEventListener("hashchange", _routeMe);
+_routeMe();
 
 module.exports = App;
 
-},{"./js/components/home/HomePage.jsx":25,"jquery":7,"react":17,"react-dom":14}],25:[function(require,module,exports){
+},{"./js/components/about/AboutPage.jsx":25,"./js/components/home/HomePage.jsx":26,"create-react-class":2,"jquery":7,"react":17,"react-dom":14}],25:[function(require,module,exports){
+"use strict"
+
+var React = require("react");
+var ReactDOM = require("react-dom");
+var createClass = require("create-react-class");
+
+var About = createClass({
+  render: function(){
+    return (
+      React.createElement("div", null, "About page under construction...")
+    );
+  }
+});
+
+module.exports = About;
+
+},{"create-react-class":2,"react":17,"react-dom":14}],26:[function(require,module,exports){
 "use strict"
 
 var React = require("react");
