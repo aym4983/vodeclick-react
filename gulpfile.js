@@ -16,12 +16,14 @@ var config = {
   baseUrl: 'http://localhost',
   paths: {
     html: './src/*.html',
+    images: './src/images/*.png',
     js: './src/**/*.js',
     indexJs: './src/index.js',
     css: [
       './node_modules/bootstrap/dist/css/bootstrap.min.css',
       './node_modules/bootstrap/dist/css/bootstrap-reboot.min.css',
-      './node_modules/bootstrap/dist/css/bootstrap-grid.min.css'
+      './node_modules/bootstrap/dist/css/bootstrap-grid.min.css',
+      './src/css/*.css'
     ],
     dist: './dist'
   }
@@ -49,6 +51,14 @@ gulp.task('open', gulp.series('conn', function(done){
 gulp.task('html', function(done){
   gulp.src(config.paths.html)
     .pipe(gulp.dest(config.paths.dist))
+    .pipe(conn.reload());
+    done();
+});
+
+// copy images to dist
+gulp.task('image', function(done){
+  gulp.src(config.paths.images)
+    .pipe(gulp.dest(config.paths.dist + '/images'))
     .pipe(conn.reload());
     done();
 });
@@ -88,7 +98,7 @@ gulp.task('watch', function(done){
 });
 
 // Default task
-gulp.task('default', gulp.series('html', 'js', 'css', 'lint', 'open', 'watch', function(){
+gulp.task('default', gulp.series('html', 'image', 'js', 'css', 'lint', 'open', 'watch', function(){
   return new Promise(function(resolve, reject) {
     console.log("HTTP Server Started");
     resolve();
